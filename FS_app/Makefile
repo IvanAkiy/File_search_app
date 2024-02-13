@@ -3,15 +3,20 @@
 # Compiler
 CC = g++
 # Compiler flags
-CFLAGS = -Wall -std=c++11 -I/home/ivan/Documents/Project_draft
+CFLAGS = -Wall -std=c++11 -I$(LIBRARY_PATH)
+
 # Source files
 SRCS = main.cpp
 # Object files
 OBJS = $(SRCS:.cpp=.o)
 # Library name
 LIBRARY = libFileSearchLib.a
-# Library path
-LIBRARY_PATH = /home/ivan/Documents/Project_draft
+
+# Default Library path (can be overridden by users)
+LIBRARY_PATH ?= $(CURDIR)/../FS_library
+
+# Default Library directory (can be overridden by users)
+LIBRARY_DIRECTORY ?= $(CURDIR)/../FS_library
 
 # Build rule for object files
 %.o: %.cpp
@@ -19,7 +24,7 @@ LIBRARY_PATH = /home/ivan/Documents/Project_draft
 
 # Build rule for the application
 MyApp: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBRARY_PATH) -lFileSearchLib
+	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBRARY_DIRECTORY) -lFileSearchLib
 
 # Clean rule
 clean:
